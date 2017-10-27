@@ -2,6 +2,7 @@ package test.koji.mitake.co.jp.kotlin_dev
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.AdapterView
 import android.widget.ListView
 import test.koji.mitake.co.jp.kotlin_dev.model.Article
 import test.koji.mitake.co.jp.kotlin_dev.model.User
@@ -19,6 +20,12 @@ class MainActivity : AppCompatActivity() {
         val listview : ListView = findViewById(R.id.list_view) as ListView
 
         listview.adapter = listAdapter
+
+        listview.setOnItemClickListener { adapterView, view, position, id ->
+            var article = listAdapter.articles[position]
+            ArticleActivity.intent(this,article).let { startActivity(it) }
+
+        }
 
         /*
         //ArticleViewオブジェクトの生成
@@ -38,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun dummyArticle(title: String, userName: String): Article =
             Article(id = "",
                     title = title,
-                    url = "http://google.com",
+                    url = "https://google.com",
                     user = User(id = "", name = userName,profileImageUrl = ""))
 }
+
